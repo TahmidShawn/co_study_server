@@ -21,7 +21,9 @@ const client = new MongoClient(uri, {
 
 async function run() {
   const userCollection = client.db("coStudyDB").collection("users");
+  const coursesCollection = client.db("coStudyDB").collection("courses");
 
+  // User Section
   app.post("/users", async (req, res) => {
     const item = req.body;
     const result = await userCollection.insertOne(item);
@@ -30,6 +32,12 @@ async function run() {
 
   app.get("/users", async (req, res) => {
     const result = await userCollection.find().toArray();
+    res.send(result);
+  });
+
+  // Courses Section
+  app.get("/courses", async (req, res) => {
+    const result = await coursesCollection.find().toArray();
     res.send(result);
   });
 
